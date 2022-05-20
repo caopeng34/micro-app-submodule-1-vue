@@ -1,3 +1,5 @@
+// 微前端子应用设置
+import './public-path'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -10,8 +12,15 @@ import "microcommon/src/mixins/index.js"
 
 Vue.config.productionTip = false
 
-new Vue({
+const app = new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+})
+
+app.$mount('#app')
+
+// 监听卸载操作
+window.addEventListener('unmount', function () {
+  app.$destroy()
+})

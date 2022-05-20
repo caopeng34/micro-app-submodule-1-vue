@@ -3,47 +3,42 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 import {ls} from "../../submodules/micro-app-common-vue/src/plugins/storage.js"
 // 子模块
-import login01 from "../views/_01_login/_store"
-import home02 from "../views/_02_home/_store";
 import ceshi99 from "../views/_99_ceshi/_store";
 
 export default new Vuex.Store({
   state: {
+    // -- 取自基座应用的数据，LocalStorage --
     accesstoken: ls.get("accesstoken") || "",       // token
     userinfo: ls.get("userinfo") || {},             // 用户信息
-    username: ls.get("uword1") || "",               // 登录用户账号
-    password: ls.get("uword2") || "",               // 登录用户密码
+    // -- 其他 --
     failuretime: 1000 * 60 * 60 * 24 * 7,           // localstorage失效时间，配合storage使用
-    // -- 页面 --
-    loginpage: 'login01/login' || '',               // 登录路由
-    registerpage: 'login01/register' || '',         // 注册路由
-    homepage: 'home02/home' || '',                  // 首页路由
-    mypage: 'home02/mypage' || '',                  // 我的路由
+    // -- 接收基座应用数据 --
+    subbackmain: ls.get("subbackmain") || "",       // 子应用返回基座应用路由名
 
   },
   mutations: {
-    updateaccesstoken(state, obj) {
-      ls.set("accesstoken", obj, state.failuretime)
-      state.accesstoken = ls.get("accesstoken")
-    },
-    updateuserinfo(state, obj) {
-      ls.set("userinfo", obj, state.failuretime)
-      state.userinfo = ls.get("userinfo")
-    },
-    updateusername(state, obj) {
-      ls.set("uword1", obj, state.failuretime)
-      state.username = ls.get("uword1")
-    },
-    updatepassword(state, obj) {
-      ls.set("uword2", obj, state.failuretime)
-      state.password = ls.get("uword2")
+    updatesubbackmain(state, obj) {
+      ls.set("subbackmain", obj, state.failuretime)
+      state.mainbackroute = ls.get("subbackmain")
     },
   },
   actions: {
+    // 微前端：子应用获取基座应用数据
+    initbasicinfo({state, commit, dispatch}, obj) {
+      return new Promise(resolve => {
+        // 返回基座下发的data数据
+        const data = window.microApp && window.microApp.getData()
+        if (data) {
+          commit('updatesubbackmain',data.subbackmain)
+          console.log('子应用更新基础信息成功')
+          resolve(true)
+        } else {
+          resolve(false)
+        }
+      })
+    }
   },
   modules: {
-    login01,        // 登录业务
-    home02,         // 首页业务
     ceshi99,        // 测试业务
   }
 })

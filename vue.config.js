@@ -24,6 +24,9 @@ module.exports = {
     https: false,
     open: true,
     hot: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     proxy: {
       '/api': { // 腾讯位置服务
         target: 'http://192.168.117.111:11080',

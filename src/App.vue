@@ -12,13 +12,9 @@ export default {
   methods: {
     // 进入系统
     async enterSystem(_this) {
-      _this.$store.dispatch("login01/getuserinfo", {}).then(res => {
+      _this.$store.dispatch("initbasicinfo", {}).then(res => {
         if (res) {
-          if (res === 'home') {        // 跳转首页
-            _this.$router.push({name: _this.$store.state.homepage})
-          } else if (res === 'login') { // 跳转登录
-            _this.$router.push({name: _this.$store.state.loginpage})
-          }
+          console.log(res)
         }
       });
     }

@@ -7,13 +7,18 @@ const subrouters = {
             meta: {keepAlive: false, scrollTop: 0},
             component: () => import( "./ceshi1")
         },
+        {
+            name: "ceshi99/ceshi2",                 // 测试-2
+            meta: {keepAlive: false, scrollTop: 0},
+            component: () => import( "./ceshi2")
+        },
     ]
 };
 
 // 处理路由path
-subrouters.path = "/" + subrouters.name
+subrouters.path =( window.__MICRO_APP_BASE_ROUTE__ || '/') + subrouters.name
 subrouters.children.forEach(item => {
-    item.path = "/" + item.name
+    item.path = ( window.__MICRO_APP_BASE_ROUTE__ || '/') + item.name
 })
 
 export default subrouters;
