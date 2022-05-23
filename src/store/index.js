@@ -28,7 +28,7 @@ export default new Vuex.Store({
     },
     updatesubbackmain(state, obj) {
       ls.set("subbackmain", obj, state.failuretime)
-      state.mainbackroute = ls.get("subbackmain")
+      state.subbackmain = ls.get("subbackmain")
     },
   },
   actions: {
