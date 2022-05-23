@@ -2,18 +2,20 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
+import tmp00 from "../views/_00_tmp/_router"
 import ceshi99 from "../views/_99_ceshi/_router"
 
 const routes = [
-    // {
-    //     path: "/",
-    //     redirect: "/firstpage"
-    // },
-    // {
-    //     name: "firstpage",
-    //     path: "/firstpage",
-    //     component: () => import( "../views/firstpage")
-    // },
+    {
+        path: "/",
+        redirect: "/firstpage"
+    },
+    {
+        name: "firstpage",
+        path: "/firstpage",
+        component: () => import( "../views/firstpage")
+    },
+    tmp00,          // 临时业务
     ceshi99,        // 测试业务
 ]
 

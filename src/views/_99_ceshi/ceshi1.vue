@@ -38,9 +38,7 @@ export default {
   methods: {
     // 覆盖公共返回方法
     back() {
-      console.log(this.$store.state.subbackmain)
-      // 子应用向基座应用发送数据
-      window.microApp.dispatch({type: 'back', subbackmain: this.$store.state.subbackmain}) // dispatch只接受对象作为参数
+      this.$store.dispatch("backbasic", "tmp00/home")
     },
     // 测试页面
     onCeshi2() {

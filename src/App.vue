@@ -13,8 +13,10 @@ export default {
     // 进入系统
     async enterSystem(_this) {
       _this.$store.dispatch("initbasicinfo", {}).then(res => {
-        if (res) {
-          console.log(res)
+        if (res && res === 'home') {    // 跳转首页
+          this.$router.push({name: 'tmp00/home'})
+        } else {                        // 其他，不处理
+          // console.log(res)
         }
       });
     }
